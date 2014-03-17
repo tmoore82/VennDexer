@@ -5,7 +5,7 @@ Compare File Set to CSV Index
 
 ###Requirements
 
-Needs the `SigChecker` library or a copy of its CheckSignature method.
+Needs the [`SigChecker`](https://github.com/tmoore82/SigChecker) library or a copy of its CheckSignature method.
 
 ###Use Case:
 

@@ -3,11 +3,15 @@ VennDexer
 
 Compare File Set to CSV Index
 
-I developed this to assist in data conversions. 
+###Requirements
 
-Use Case:
+Needs the [`SigChecker`](https://github.com/tmoore82/SigChecker) library or a copy of its CheckSignature method.
+
+###Use Case:
 
 Client is changing CRM vendors and needs to upload their attachments. Client provides new vendor with 1) CSV index of attachments from old system and 2) Collection of folders, possibly compressed, containing attachment files.
+
+###What it does
 
 VennDexer (working title) is a .NET library (C#) that accepts a config file as input and then takes the following steps:
 
@@ -22,5 +26,7 @@ VennDexer (working title) is a .NET library (C#) that accepts a config file as i
   - List of index records that do not match a file (full lines from CSV)
   - List of files that do not have an index
   - List of duplicate files
+
+###Bonus Consumer App
         
 This solution also includes a sample consuming application for the console that just takes the location of the config file as input. It creates a VennDexer.FileStat object to receive the results, and then passes the location of the config file to Venngine.crank. The library does the rest.

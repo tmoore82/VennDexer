@@ -38,6 +38,10 @@ namespace VennDexer
             {
                 Directory.CreateDirectory(cfg.resultsDir);
             }
+            else if (Directory.Exists(cfg.resultsDir))
+            {
+                throw new UnauthorizedAccessException(cfg.resultsDir);
+            }
             else
             { 
                 throw new DirectoryNotFoundException(cfg.resultsDir);

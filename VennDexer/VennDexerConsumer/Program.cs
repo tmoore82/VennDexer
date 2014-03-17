@@ -12,7 +12,7 @@ namespace VennDexerConsumer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("VennDexer v1.0 | tmoore82 | 2014.03.15");
+            Console.WriteLine("VennDexer v1.0 | tmoore82 | 2014.03.17");
 
             Console.WriteLine();
             Console.Write("Press Enter to begin...");
@@ -36,7 +36,7 @@ namespace VennDexerConsumer
             catch (DirectoryNotFoundException e)
             {
                 Console.WriteLine();
-                Console.WriteLine("Error: " + e.Message);
+                Console.WriteLine("Error: " + e.Message + " not found. Please correct the error and try again.");
                 Console.WriteLine();
                 Console.Write("Program will exit when you hit enter...");
                 Console.ReadLine();
@@ -56,11 +56,13 @@ namespace VennDexerConsumer
             catch (UnauthorizedAccessException e)
             {
                 Console.WriteLine();
-                Console.WriteLine("Directory or file" + e.Message + " and cannot be overwritten.");
+                Console.WriteLine("Directory or file " + e.Message + " already exists and cannot be overwritten.");
                 Console.WriteLine("Please delete the current file or directory, or choose a different target and start again.");
                 Console.WriteLine();
                 Console.Write("Program will exit when you hit enter...");
                 Console.ReadLine();
+
+                Environment.Exit(0);
             }
             catch (IOException e)
             {
@@ -70,6 +72,8 @@ namespace VennDexerConsumer
                 Console.WriteLine();
                 Console.Write("Program will exit when you hit enter...");
                 Console.ReadLine();
+
+                Environment.Exit(0);
             }
             catch (Exception e)
             {

@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="SigChecker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\SigChecker\SigChecker\bin\Release\SigChecker.dll</HintPath>
+      <HintPath>..\..\..\SigChecker\SigChecker\bin\Release\SigChecker.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

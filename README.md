@@ -16,7 +16,7 @@ Client is changing CRM vendors and needs to upload their attachments. Client pro
 VennDexer (working title) is a .NET library (C#) that accepts a config file as input and then takes the following steps:
 
 1. Extracts files from the compressed folders (Note: If the files are not compressed, this step is skipped)
-2. Generates a list of the complete file set in across all directories and sub directories
+2. Generates a list of the complete file set across all directories and sub directories
 3. Extracts the file names from the provided index
 4. Delivers the following data back to the consuming application as a custom object:
   - Index record count (number of files we should have)

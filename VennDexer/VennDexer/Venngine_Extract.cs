@@ -19,8 +19,10 @@ namespace VennDexer
         /// </summary>
         /// <param name="zipDir"></param>
         /// <param name="extractDir"></param>
-        internal static void extract(string zipDir, string extractDir)
+        internal static List<string> extract(List<string> zipDirs, string extractDir)
         {
+            List<string> extracted = new List<string>();
+
             Dictionary<string, int[,]> zipSigs = new Dictionary<string, int[,]>();
             //zipSigs.Add("1F-8B-08", new int[1, 2] { { 3, 0 } });
             //zipSigs.Add("37-7A-BC-AF-27-1C", new int[1, 2] { { 6, 0 } });
@@ -28,20 +30,42 @@ namespace VennDexer
             zipSigs.Add("50-4B-05-06", new int[1, 2] { { 4, 0 } });
             zipSigs.Add("50-4B-05-08", new int[1, 2] { { 4, 0 } });
             //zipSigs.Add("57-69-6E-5A-69-70", new int[1, 2] { { 6, 289152 } });
-
-            foreach (string file in Directory.GetFiles(zipDir))
+            foreach (string dir in zipDirs)
             {
-                foreach (KeyValuePair<string, int[,]> entry in zipSigs)
+                foreach (string file in Directory.GetFiles(dir))
                 {
-                    if (SigChecker.SigChecker.CheckSignature(file, entry.Value[0, 0], entry.Value[0, 1], entry.Key))
+                    foreach (KeyValuePair<string, int[,]> entry in zipSigs)
                     {
-                        string newDir = extractDir + "\\" + Path.GetFileNameWithoutExtension(file);
-                        Directory.CreateDirectory(newDir);
-                        ZipFile.ExtractToDirectory(file, newDir);
-                        break;
+                        if (SigChecker.SigChecker.CheckSignature(file, entry.Value[0, 0], entry.Value[0, 1], entry.Key))
+                        {
+                            string newDir = extractDir + "\\" + Path.GetFileNameWithoutExtension(file);
+
+                            if (!Directory.Exists(newDir))
+                            {
+                                try
+                                {
+                                    Directory.CreateDirectory(newDir);
+                                }
+                                catch (UnauthorizedAccessException e)
+                                {
+                                    throw new UnauthorizedAccessException(e.Message, e.InnerException);
+                                }
+
+                                ZipFile.ExtractToDirectory(file, newDir);
+                                extracted.Add(newDir);
+                            }
+                            else
+                            {
+                                throw new UnauthorizedAccessException(newDir);
+                            }
+
+                            break;
+                        }
                     }
                 }
             }
+
+            return extracted;
         }
     }
 }

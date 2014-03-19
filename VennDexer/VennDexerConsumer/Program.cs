@@ -12,7 +12,7 @@ namespace VennDexerConsumer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("VennDexer v1.0 | tmoore82 | 2014.03.17");
+            Console.WriteLine("VennDexer v2.0 | tmoore82 | 2014.03.18");
 
             Console.WriteLine();
             Console.Write("Press Enter to begin...");
@@ -23,7 +23,8 @@ namespace VennDexerConsumer
             Console.WriteLine();
             Console.WriteLine("Start time: " + start.ToString());
 
-            string configLoc = args[0];
+            //string configLoc = args[0];
+            string configLoc = @"C:\users\tmoore\Desktop\eaglelift-venndexer-config.xml";
 
             List<VennDexer.FileStat> results = new List<VennDexer.FileStat>();
 
@@ -56,8 +57,7 @@ namespace VennDexerConsumer
             catch (UnauthorizedAccessException e)
             {
                 Console.WriteLine();
-                Console.WriteLine("Directory or file " + e.Message + " already exists and cannot be overwritten.");
-                Console.WriteLine("Please delete the current file or directory, or choose a different target and start again.");
+                Console.WriteLine(e.Message);
                 Console.WriteLine();
                 Console.Write("Program will exit when you hit enter...");
                 Console.ReadLine();
@@ -67,8 +67,7 @@ namespace VennDexerConsumer
             catch (IOException e)
             {
                 Console.WriteLine();
-                Console.WriteLine("Directory or file" + e.Message + " and cannot be overwritten.");
-                Console.WriteLine("Please delete the current file or directory, or choose a different target and start again.");
+                Console.WriteLine(e.Message);
                 Console.WriteLine();
                 Console.Write("Program will exit when you hit enter...");
                 Console.ReadLine();

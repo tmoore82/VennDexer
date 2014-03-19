@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace VennDexer
 {
@@ -12,11 +13,11 @@ namespace VennDexer
     /// </summary>
     internal class Config
     {
-        internal bool createDirs { get; set; }
-        internal string zipDir { get; set; }
+        internal string resultsDir { get; set; }
+        internal bool areZipped { get; set; }
+        internal bool doExtract { get; set; }
         internal string extractDir { get; set; }
         internal List<string> srcDirs { get; set; }
-        internal string resultsDir { get; set; }
         internal IndexFile index { get; set; }
 
         /// <summary>

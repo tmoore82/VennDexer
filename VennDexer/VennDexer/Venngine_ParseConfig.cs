@@ -24,13 +24,29 @@ namespace VennDexer
             foreach (XmlNode node in nodes)
             {
                 Config cfg = new Config();
-                cfg.index = new Config.IndexFile();
-                cfg.createDirs = node.SelectSingleNode("createDirs").InnerText == "yes" ? true : false;
-                cfg.zipDir = node.SelectSingleNode("zipDir").InnerText;
-                cfg.extractDir = node.SelectSingleNode("extractDir").InnerText;
-                cfg.srcDirs = getSrc(node.SelectSingleNode("srcDirs/src").InnerText);
+                cfg.srcDirs = new List<string>();
+
+                XmlNodeList srcDirs = node.SelectNodes("srcDirs/src");
+                List<string> tmpSrcDirs = new List<string>();
+
+                for (int i = 0; i < srcDirs.Count; i++)
+                {
+                    tmpSrcDirs.Add(srcDirs[i].InnerText);
+                }
+
+                if ((cfg.areZipped = node.SelectSingleNode("srcDirs/areZipped").InnerText == "yes" ? true : false))
+                {
+                    if ((cfg.doExtract = node.SelectSingleNode("srcDirs/doExtract").InnerText == "yes" ? true : false))
+                    {
+                        cfg.extractDir = node.SelectSingleNode("srcDirs/extractDir").InnerText;
+                    }
+                }
+
+                cfg.srcDirs = recurSrc(tmpSrcDirs);
+
                 cfg.resultsDir = node.SelectSingleNode("resultsDir").InnerText;
 
+                cfg.index = new Config.IndexFile();
                 cfg.index.file = node.SelectSingleNode("index/file").InnerText;
 
                 if (node.SelectSingleNode("index/delimited").InnerText != "" & node.SelectSingleNode("index/delimited").InnerText == "yes")
@@ -69,54 +85,32 @@ namespace VennDexer
         }
 
         /// <summary>
-        /// Goes through the source directories specified by the user 
-        /// and adds them to our list of source directories.
-        /// </summary>
-        /// <param name="usrSrc"></param>
-        /// <returns></returns>
-        private static List<string> getSrc(string usrSrc)
-        {
-            List<string> sources = new List<string>();
-
-            if (usrSrc == "zipDir")
-            {
-                return sources;
-            }
-            else
-            {
-                string[] dirs = usrSrc.Split(',');
- 
-                return recurSrc(dirs, sources);
-            }
-        }
-
-        /// <summary>
         /// Recursive function that goes through all subdirectories 
         /// in a provided array and adds them to a provided list of sources.
         /// </summary>
         /// <param name="dirs"></param>
         /// <param name="sources"></param>
         /// <returns></returns>
-        private static List<string> recurSrc(string[] dirs, List<string> sources)
+        private static List<string> recurSrc(List<string> srcDirs)
         {
-            foreach (string dir in dirs)
+            foreach (string src in srcDirs)
             {
-                if (Directory.GetDirectories(dir).Length > 0)
-                { 
-                    recurSrc(Directory.GetDirectories(dir),sources);
+                if (Directory.GetDirectories(src).Length > 0)
+                {
+                    srcDirs.AddRange(recurSrc(Directory.GetDirectories(src).ToList<string>()));
                 }
 
-                if (Directory.Exists(dir))
+                if (Directory.Exists(src) & !srcDirs.Contains(src))
                 {
-                    sources.Add(dir);
+                    srcDirs.Add(src);
                 }
-                else
+                else if(!Directory.Exists(src))
                 {
-                    throw new DirectoryNotFoundException(dir);
+                    throw new DirectoryNotFoundException(src);
                 }
             }
 
-            return sources;
+            return srcDirs;
         }
     }
 }

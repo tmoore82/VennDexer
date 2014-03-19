@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<analyzerConfig>
+<VennDexerConfig>
 	<fileSet>
-		<createDirs>yes</createDirs>
-  		<srcDirs>
-			<src>C:\users\%username%\Desktop\srcLoc</src>
+  	<srcDirs>
+			<src>C:\users\%username%\Desktop\srcLoc\</src>
+      <areZipped></areZipped>
+      <doExtract></doExtract>
+      <extractDir></extractDir>
 		</srcDirs>
-		<resultsDir>c:\users\%username%\Desktop\Results\</resultsDir>
-		<zipDir></zipDir>
-		<extractDir></extractDir>
+    <resultsDir>c:\users\%username%\Desktop\Results\</resultsDir>
 		<index>
 			<file>c:\users\%username%\Desktop\fileIndex.csv</file>
 			<delimited>no</delimited>
@@ -15,7 +15,7 @@
 			<fileNameColumn></fileNameColumn>
 		</index>
 	</fileSet>
-</analyzerConfig>
+</VennDexerConfig>
 
 <!-- Delimiting char
    t = tab

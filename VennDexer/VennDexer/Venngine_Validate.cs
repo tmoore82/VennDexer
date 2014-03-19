@@ -21,30 +21,33 @@ namespace VennDexer
         /// <returns></returns>
         internal static Config validate(Config cfg)
         {
-            if (cfg.zipDir != "" & !Directory.Exists(cfg.zipDir))
+            foreach (string dir in cfg.srcDirs)
             {
-                throw new DirectoryNotFoundException(cfg.zipDir);
-            }
-            else if (cfg.zipDir != "" & !Directory.Exists(cfg.extractDir) & cfg.createDirs == false)
-            {
-                throw new DirectoryNotFoundException(cfg.extractDir);
-            }
-            else if (cfg.zipDir != "" & !Directory.Exists(cfg.extractDir) & cfg.createDirs == true)
-            {
-                Directory.CreateDirectory(cfg.extractDir);
+                if (!Directory.Exists(dir))
+                {
+                    throw new DirectoryNotFoundException(dir);
+                }
             }
 
-            if (!Directory.Exists(cfg.resultsDir) & cfg.createDirs == true)
+            if (!Directory.Exists(cfg.resultsDir))
             {
                 Directory.CreateDirectory(cfg.resultsDir);
             }
-            else if (Directory.Exists(cfg.resultsDir))
+            else
             {
                 throw new UnauthorizedAccessException(cfg.resultsDir);
             }
-            else
-            { 
-                throw new DirectoryNotFoundException(cfg.resultsDir);
+
+            if (cfg.extractDir != null)
+            {
+                if (!Directory.Exists(cfg.extractDir))
+                {
+                    Directory.CreateDirectory(cfg.extractDir);
+                }
+                else
+                {
+                    throw new UnauthorizedAccessException(cfg.extractDir);
+                }
             }
 
             return cfg;

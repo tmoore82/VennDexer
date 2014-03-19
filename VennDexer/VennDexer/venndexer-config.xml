@@ -15,6 +15,38 @@
 			<fileNameColumn></fileNameColumn>
 		</index>
 	</fileSet>
+  
+	<fileSet>
+  	<srcDirs>
+			<src>C:\users\%username%\Desktop\srcLoc2\</src>
+      <areZipped>yes</areZipped>
+      <doExtract>no</doExtract>
+      <extractDir></extractDir>
+		</srcDirs>
+    <resultsDir>c:\users\%username%\Desktop\Results2\</resultsDir>
+		<index>
+			<file>c:\users\%username%\Desktop\fileIndex2.csv</file>
+			<delimited>yes</delimited>
+			<delimiter>,</delimiter>
+			<fileNameColumn>3</fileNameColumn>
+		</index>
+	</fileSet>
+  
+	<fileSet>
+  	<srcDirs>
+			<src>C:\users\%username%\Desktop\srcLoc3\</src>
+      <areZipped>yes</areZipped>
+      <doExtract>yes</doExtract>
+      <extractDir>c:\users\%username%\Desktop\extracted\</extractDir>
+		</srcDirs>
+    <resultsDir>c:\users\%username%\Desktop\Results3\</resultsDir>
+		<index>
+			<file>c:\users\%username%\Desktop\fileIndex3.csv</file>
+			<delimited>yes</delimited>
+			<delimiter>t</delimiter>
+			<fileNameColumn>2</fileNameColumn>
+		</index>
+	</fileSet>
 </VennDexerConfig>
 
 <!-- Delimiting char
